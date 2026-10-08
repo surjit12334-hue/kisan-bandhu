@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#1b5e20">
+<meta name="description" content="Kisan Bandhu - APMC mandi weighbridge slot booking with Web PWA and Toll-Free IVR">
+<title>Kisan Bandhu · किसान बंधु</title>
+<link rel="manifest" href="/manifest.json">
+<link rel="icon" href="/icons/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/icons/icon.svg">
+<link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand" onclick="nav('home')">
+    <img src="/icons/icon.svg" alt="Kisan Bandhu" width="34" height="34">
+    <div>
+      <strong data-i18n="brand">किसान बंधु · Kisan Bandhu</strong>
+      <small data-i18n="tagline">APMC वीघब्रिज स्लॉट · Toll-Free IVR</small>
+    </div>
+  </div>
+  <nav id="mainnav">
+    <a href="#home" data-i18n="nav_home">होम</a>
+    <a href="#book" data-i18n="nav_book">स्लॉट बुक</a>
+    <a href="#tokens" data-i18n="nav_tokens">मेरे टोकन</a>
+    <a href="#prices" data-i18n="nav_prices">मंडी भाव</a>
+    <a href="#ivr" data-i18n="nav_ivr">IVR डेमो</a>
+    <a href="#admin" id="adminLink" style="display:none" data-i18n="nav_admin">डैशबोर्ड</a>
+  </nav>
+  <div class="top-actions">
+    <button class="ghost" id="langBtn" onclick="toggleLang()">EN</button>
+    <span id="userChip" class="chip" style="display:none"></span>
+    <button class="ghost" id="authBtn" onclick="nav('auth')" data-i18n="login">लॉगिन</button>
+  </div>
+</header>
+
+<main id="app">
+
+  <!-- HOME -->
+  <section class="view" id="view-home">
+    <div class="hero">
+      <div class="hero-text">
+        <h1 data-i18n="hero_title">गेट की भीड़ से सीधे निर्बाध खरीदी तक</h1>
+        <p data-i18n="hero_sub">4–8 घंटे की लाइन खत्म। डिजिटल टोकन, ज़ीरो-आइडल री-शेड्यूलिंग और टोल-फ्री आवाज़ सहायक — हर किसान के लिए, स्मार्टफ़ोन हो या फ़ीचर फ़ोन।</p>
+        <div class="hero-cta">
+          <button class="primary" onclick="nav('book')" data-i18n="cta_book">अभी स्लॉट बुक करें</button>
+          <button class="secondary" onclick="nav('ivr')" data-i18n="cta_ivr">IVR आवाज़ डेमो</button>
+        </div>
+        <div class="tollfree" id="tollFreeHome">☎ Toll-Free: 1800-233-4455</div>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <div class="art-card">
+          <span class="art-label" data-i18n="art_token">डिजिटल टोकन</span>
+          <strong id="heroToken">KB261008-0001</strong>
+          <span class="art-meta">08:15 · WB-2</span>
+        </div>
+        <div class="art-card ok">
+          <span class="art-label" data-i18n="art_idle">ज़ीरो-आइडल</span>
+          <strong>-92%</strong>
+          <span class="art-meta" data-i18n="art_idle_meta">वेटब्रिज खाली समय</span>
+        </div>
+        <div class="art-card warn">
+          <span class="art-label" data-i18n="art_wait">पहले इंतज़ार</span>
+          <strong>4–8 hrs</strong>
+          <span class="art-meta" data-i18n="art_wait_meta">अब ~0 मिनट</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid4">
+      <div class="stat"><b>7,000+</b><span data-i18n="stat_mandis">APMC मंडियाँ (लक्ष्य)</span></div>
+      <div class="stat"><b>2</b><span data-i18n="stat_channels">चैनल: PWA + IVR</span></div>
+      <div class="stat"><b>30s</b><span data-i18n="stat_engine">ज़ीरो-आइडल इंजन टिक</span></div>
+      <div class="stat"><b>0</b><span data-i18n="stat_training">ट्रेनिंग ज़रूरी नहीं</span></div>
+    </div>
+
+    <h2 data-i18n="features">विशेषताएँ</h2>
+    <div class="features">
+      <div class="card"><h3 data-i18n="f1t">स्वचालित गेट स्लॉट बुकिंग</h3><p data-i18n="f1p">वीघब्रिज के लिए 15-मिनट के स्लॉट, तुरंत टोकन और SMS/OTP अलर्ट।</p></div>
+      <div class="card"><h3 data-i18n="f2t">ज़ीरो-आइडल ट्रैप इंजन</h3><p data-i18n="f2p">नो-शो को अपने आप री-शेड्यूल, खाली स्लॉट में प्रतीक्षा-सूची को तुरंत भरना।</p></div>
+      <div class="card"><h3 data-i18n="f3t">दोहरी पहुँच: PWA + IVR</h3><p data-i18n="f3p">स्मार्टफ़ोन के लिए वेब PWA, फ़ीचर फ़ोन के लिए टोल-फ्री आवाज़ सहायक।</p></div>
+      <div class="card"><h3 data-i18n="f4t">पूर्ण पारदर्शिता</h3><p data-i18n="f4p">लाइव एडमिन डैशबोर्ड, घंटेवार थ्रूपुट, नो-शो दर और SMS आउटबॉक्स।</p></div>
+    </div>
+  </section>
+
+  <!-- AUTH -->
+  <section class="view" id="view-auth" style="display:none">
+    <div class="auth-wrap">
+      <div class="card auth-card">
+        <div class="tabs">
+          <button class="tab active" id="tabLogin" onclick="switchAuth('login')" data-i18n="login">लॉगिन</button>
+          <button class="tab" id="tabReg" onclick="switchAuth('register')" data-i18n="register">पंजीकरण</button>
+        </div>
+
+        <form id="loginForm" onsubmit="return doLogin(event)">
+          <label data-i18n="phone">मोबाइल नंबर</label>
+          <input name="phone" inputmode="numeric" maxlength="10" placeholder="9876543210" required>
+          <label data-i18n="password">पासवर्ड</label>
+          <input name="password" type="password" placeholder="••••••••" required>
+          <button class="primary block" data-i18n="login">लॉगिन</button>
+        </form>
+
+        <form id="regForm" style="display:none" onsubmit="return doRegister(event)">
+          <label data-i18n="name">नाम</label>
+          <input name="name" placeholder="रामेश पाटीदार" required>
+          <label data-i18n="phone">मोबाइल नंबर</label>
+          <input name="phone" inputmode="numeric" maxlength="10" placeholder="9876543210" required>
+          <label data-i18n="password">पासवर्ड</label>
+          <input name="password" type="password" minlength="4" required>
+          <label class="check"><input type="checkbox" name="featurePhone"> <span data-i18n="feature_phone">मेरे पास फ़ीचर फ़ोन है (केवल IVR)</span></label>
+          <div class="otp-row">
+            <button type="button" class="secondary" onclick="requestOtp('REGISTER')" data-i18n="send_otp">OTP भेजें</button>
+            <input name="otp" placeholder="6 अंकों का OTP" maxlength="6">
+            <button type="button" class="ghost" onclick="verifyOtp('REGISTER')" data-i18n="verify_otp">सत्यापित</button>
+          </div>
+          <span id="otpState" class="muted"></span>
+          <button class="primary block" data-i18n="register">पंजीकरण</button>
+        </form>
+
+        <div class="demo-creds">
+          <p><b>Demo:</b> farmer 9876543210 / farmer123 · admin 9999999999 / admin123</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BOOK -->
+  <section class="view" id="view-book" style="display:none">
+    <h2 data-i18n="book_title">वीघब्रिज स्लॉट बुक करें</h2>
+    <div class="filters">
+      <label><span data-i18n="mandi">मंडी</span>
+        <select id="mandiSel" onchange="loadAvailability()"></select></label>
+      <label><span data-i18n="date">तारीख़</span>
+        <input type="date" id="bookDate" onchange="loadAvailability()"></label>
+      <div class="wait-est" id="waitEst"></div>
+    </div>
+
+    <div id="availability" class="availability"></div>
+
+    <div class="card form-card" id="bookFormCard" style="display:none">
+      <h3 id="bookFormTitle"></h3>
+      <form onsubmit="return doBook(event)">
+        <div class="row2">
+          <div><label data-i18n="vehicle">वाहन नंबर</label>
+            <input name="vehicleNumber" placeholder="MP09AB1234" required></div>
+          <div><label data-i18n="crop">फ़सल</label>
+            <input name="crop" placeholder="गेहूँ / Wheat" required></div>
+        </div>
+        <label data-i18n="qty">मात्रा (टन)</label>
+        <input name="quantityTons" type="number" min="1" step="0.5" value="5" required>
+        <button class="primary block" data-i18n="confirm_book">टोकन कन्फ़र्म करें</button>
+      </form>
+    </div>
+
+    <div class="card" id="waitlistCard">
+      <h3 data-i18n="full_title">स्लॉट भर गए?</h3>
+      <p class="muted" data-i18n="full_sub">प्रतीक्षा सूची में जुड़ें — ज़ीरो-आइडल इंजन खाली होते ही स्लॉट देगा और SMS भेजेगा।</p>
+      <button class="secondary" onclick="joinWaitlist()" data-i18n="join_waitlist">प्रतीक्षा सूची में जुड़ें</button>
+    </div>
+  </section>
+
+  <!-- TOKENS -->
+  <section class="view" id="view-tokens" style="display:none">
+    <h2 data-i18n="tokens_title">मेरे टोकन एवं प्रतीक्षा सूची</h2>
+    <div id="tokensList" class="list"></div>
+    <div id="waitlistList" class="list"></div>
+  </section>
+
+  <!-- PRICES -->
+  <section class="view" id="view-prices" style="display:none">
+    <h2 data-i18n="prices_title">आज के मंडी भाव <small>(Agmarknet)</small></h2>
+    <table class="table" id="pricesTable">
+      <thead><tr><th data-i18n="commodity">फ़सल</th><th data-i18n="price">भाव (₹)</th><th data-i18n="unit">इकाई</th><th data-i18n="market">मंडी</th><th data-i18n="pdate">तारीख़</th></tr></thead>
+      <tbody></tbody>
+    </table>
+  </section>
+
+  <!-- IVR -->
+  <section class="view" id="view-ivr" style="display:none">
+    <h2 data-i18n="ivr_title">टोल-फ्री IVR आवाज़ सहायक — इंटरैक्टिव डेमो</h2>
+    <p class="muted" data-i18n="ivr_sub">फ़ीचर फ़ोन वाला किसान 1800 नंबर पर कॉल करता है। नीचे कीपैड से वही अनुभव आज़माएँ — हर जवाब वास्तविक IVR API से आता है।</p>
+    <div class="ivr-wrap">
+      <div class="phone">
+        <div class="phone-screen" id="ivrScreen">
+          <div class="ivr-line muted">☎ 1800-233-4455 पर कॉल शुरू करें…</div>
+        </div>
+        <div class="phone-num" id="ivrCaller">+91 9876543210</div>
+        <div class="keypad">
+          <button onclick="ivrKey('1')">1</button><button onclick="ivrKey('2')">2</button><button onclick="ivrKey('3')">3</button>
+          <button onclick="ivrKey('4')">4</button><button onclick="ivrKey('5')">5</button><button onclick="ivrKey('6')">6</button>
+          <button onclick="ivrKey('7')">7</button><button onclick="ivrKey('8')">8</button><button onclick="ivrKey('9')">9</button>
+          <button onclick="ivrKey('*')">*</button><button onclick="ivrKey('0')">0</button><button onclick="ivrKey('#')">#</button>
+        </div>
+        <div class="phone-actions">
+          <button class="call" onclick="ivrStart()" data-i18n="call">कॉल करें</button>
+          <button class="hang" onclick="ivrEnd()" data-i18n="hangup">रोकें</button>
+        </div>
+      </div>
+      <div class="card ivr-help">
+        <h3 data-i18n="ivr_menu">मेन्यू</h3>
+        <ul>
+          <li><b>1</b> — <span data-i18n="ivr_1">स्लॉट बुक करें</span></li>
+          <li><b>2</b> — <span data-i18n="ivr_2">टोकन स्थिति</span></li>
+          <li><b>3</b> — <span data-i18n="ivr_3">आज के भाव</span></li>
+          <li><b>4</b> — <span data-i18n="ivr_4">प्रतीक्षा सूची</span></li>
+          <li><b>0</b> — <span data-i18n="ivr_0">बाहर</span></li>
+        </ul>
+        <p class="muted" data-i18n="ivr_note">प्रदर्शन हेतु कॉलर नंबर 9876543210 (डेमो किसान) माना जाता है। वास्तविक एकीकरण: Exotel / Twilio / Knowlarity वेबहुक इसी एंडपॉइंट पर पॉइंट करते हैं।</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ADMIN -->
+  <section class="view" id="view-admin" style="display:none">
+    <h2 data-i18n="admin_title">लाइव प्रशासन डैशबोर्ड</h2>
+    <div class="filters">
+      <label><span data-i18n="mandi">मंडी</span><select id="adminMandiSel" onchange="loadAdmin()"></select></label>
+      <label><span data-i18n="date">तारीख़</span><input type="date" id="adminDate" onchange="loadAdmin()"></label>
+      <button class="ghost" onclick="loadAdmin()">↻</button>
+    </div>
+    <div class="grid4" id="statCards"></div>
+    <div class="card">
+      <h3 data-i18n="throughput">घंटेवार थ्रूपुट (पूर्ण वीघब्रिजिंग)</h3>
+      <div class="bars" id="hourlyBars"></div>
+    </div>
+    <div class="card">
+      <h3 data-i18n="slots_today">आज के स्लॉट</h3>
+      <table class="table" id="slotsTable">
+        <thead><tr><th>Token</th><th data-i18n="time">समय</th><th data-i18n="bridge">वीघब्रिज</th><th data-i18n="farmer">किसान</th><th data-i18n="vehicle">वाहन</th><th data-i18n="status">स्थिति</th><th></th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <div class="card">
+      <h3 data-i18n="sms_log">SMS आउटबॉक्स (मॉक गेटवे)</h3>
+      <div id="smsList" class="list compact"></div>
+    </div>
+    <div class="card">
+      <h3 data-i18n="events">लाइव इवेंट लॉग</h3>
+      <div id="eventList" class="list compact"></div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <p><strong>Kisan Bandhu</strong> · Team Victus · SIH Idea Submission — “From gate congestion to seamless procurement”</p>
+  <p class="muted">Spring Boot · Java 17 · MySQL 8.4 (Aiven ready) · PWA · Toll-Free IVR · Agmarknet</p>
+</footer>
+
+<div id="toast" class="toast"></div>
+<script src="/js/app.js"></script>
+</body>
+</html>

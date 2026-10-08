@@ -1,0 +1,8 @@
+backend/target/
+backend/data/
+backend/*.log
+*.iml
+.idea/
+.vscode/
+node_modules/
+.DS_Store

@@ -1,0 +1,59 @@
+spring:
+  application:
+    name: kisan-bandhu
+  datasource:
+    url: jdbc:h2:file:./data/kisanbandhu;MODE=MySQL
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: ""
+  jpa:
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+  jackson:
+    serialization:
+      write-dates-as-timestamps: false
+
+server:
+  port: 8080
+
+kisan:
+  jwt:
+    secret: ${KB_JWT_SECRET:local-dev-secret-kisan-bandhu-change-me-in-production-0123456789}
+    ttl-hours: 72
+  sms:
+    provider: mock
+    from: KB-MANDI
+  ivr:
+    toll-free: 1800-233-4455
+    grace-minutes: 20
+  slot:
+    duration-minutes: 15
+    open: "08:00"
+    close: "17:00"
+  agmarknet:
+    enabled: false
+    base-url: https://agmarknet.gov.in
+
+---
+spring:
+  config:
+    activate:
+      on-profile: mysql
+  datasource:
+    url: jdbc:mysql://${KB_DB_HOST}:${KB_DB_PORT:3306}/${KB_DB_NAME}?useSSL=true&allowPublicKeyRetrieval=true&serverTimezone=UTC
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: ${KB_DB_USER}
+    password: ${KB_DB_PASSWORD}
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      dialect: org.hibernate.dialect.MySQLDialect
+  h2:
+    console:
+      enabled: false

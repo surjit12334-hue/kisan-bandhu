@@ -1,0 +1,14 @@
+{
+  "name": "Kisan Bandhu — AMC Weighbridge Slots",
+  "short_name": "Kisan Bandhu",
+  "description": "APMC mandi weighbridge slot booking with toll-free IVR access for feature phones",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f4f7f2",
+  "theme_color": "#1b5e20",
+  "lang": "hi",
+  "icons": [
+    { "src": "/icons/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },
+    { "src": "/icons/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "maskable" }
+  ]
+}

@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <rect width="128" height="128" rx="28" fill="#1b5e20"/>
+  <circle cx="64" cy="58" r="34" fill="#43a047"/>
+  <path d="M64 88c-14 0-24-9-26-22 10 3 19 1 26-7 7 8 16 10 26 7-2 13-12 22-26 22z" fill="#fff"/>
+  <path d="M64 30v40" stroke="#1b5e20" stroke-width="5" stroke-linecap="round"/>
+  <text x="64" y="112" font-family="sans-serif" font-size="20" font-weight="bold" fill="#fff" text-anchor="middle">KB</text>
+</svg>
