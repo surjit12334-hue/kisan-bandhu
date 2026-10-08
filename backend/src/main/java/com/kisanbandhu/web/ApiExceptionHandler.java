@@ -13,7 +13,8 @@ public class ApiExceptionHandler {
 
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<Map<String, String>> badRequest(IllegalArgumentException e) {
-        return ResponseEntity.badRequest().body(Map.of("error", e.getMessage()));
+        return ResponseEntity.badRequest().body(Map.of("error",
+                e.getMessage() == null || e.getMessage().isBlank() ? "Invalid request" : e.getMessage()));
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)

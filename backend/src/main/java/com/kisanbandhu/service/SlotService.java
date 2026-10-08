@@ -199,9 +199,13 @@ public class SlotService {
                 .orElseThrow(() -> new IllegalArgumentException("Mandi not found"));
         LocalDate date = LocalDate.parse(req.date());
 
+        LocalDate today = LocalDate.now();
+        if (date.isBefore(today)) throw new IllegalArgumentException("Cannot join the waitlist for a past date");
+        LocalTime now = LocalTime.now();
         boolean anyFree = weighbridgeRepo.findByMandiIdAndStatusOrderByCode(mandi.getId(), Weighbridge.BridgeStatus.ACTIVE)
                 .stream().anyMatch(b -> grid(mandi).stream().anyMatch(t ->
-                        !slotRepo.existsByWeighbridgeIdAndDateAndStartTimeAndStatusIn(b.getId(), date, t, ACTIVE)));
+                        (date.isAfter(today) || !t.isBefore(now))
+                                && !slotRepo.existsByWeighbridgeIdAndDateAndStartTimeAndStatusIn(b.getId(), date, t, ACTIVE)));
         if (anyFree) throw new IllegalArgumentException("A free slot exists — please book directly instead of waitlisting");
 
         WaitlistEntry e = new WaitlistEntry();

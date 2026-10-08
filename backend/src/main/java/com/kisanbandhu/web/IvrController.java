@@ -17,7 +17,8 @@ public class IvrController {
 
     @PostMapping("/incoming")
     public IvrService.Response incoming(@RequestBody Map<String, String> body) {
-        String phone = body.getOrDefault("phone", "0000000000");
+        String phone = body.get("phone");
+        if (phone == null || phone.isBlank()) phone = "0000000000";
         String node = body.get("node");
         String digits = body.get("digits");
         return ivrService.handle(phone, node, digits);
